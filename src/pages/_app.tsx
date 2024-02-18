@@ -4,12 +4,18 @@ import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
 import StarknetProvider from "~/utils/starknet/provider";
+import Fonts from "~/components/layout/Fonts";
+
+
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <StarknetProvider>
-      <Component {...pageProps} />;
-    </StarknetProvider>
+    <>
+      <Fonts />
+      <StarknetProvider>
+        <Component {...pageProps} />
+      </StarknetProvider>
+    </>
   );
 };
 
