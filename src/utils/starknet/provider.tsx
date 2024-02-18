@@ -1,4 +1,4 @@
-import { sepolia } from "@starknet-react/chains";
+import { goerli } from "@starknet-react/chains";
 import {
   StarknetConfig,
   publicProvider,
@@ -11,7 +11,7 @@ export default function StarknetProvider({
 }: {
   children: React.ReactNode;
 }) {
- const chains = [sepolia];
+ const chains = [goerli];
  const provider = publicProvider();
  const connectors = [
    // argent(),
