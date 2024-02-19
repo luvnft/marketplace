@@ -8,7 +8,7 @@ export default function Main({ children }: MainProps) {
   return (
     <>
       <SiteHead />
-      <div className="font-roboto h-screen container mx-auto bg-white p-6	">
+      <div className="font-roboto h-screen mx-auto  w-full bg-white">
         {children}
       </div>
     </>
