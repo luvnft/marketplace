@@ -9,8 +9,6 @@ generator client {
 datasource db {
     provider = "mysql"
     url      = env("DATABASE_URL")
-
-    // Do not use foreign keys (PlanetScale does not support them)
     relationMode = "prisma"
 }
 
@@ -22,3 +20,50 @@ model Post {
 
     @@index([name])
 }
+
+model ShoppingCart {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([createdAt])
+
+    // A shopping cart can have many items
+    items ShoppingCartItem[]
+
+    
+}
+
+model Product {
+    id        Int      @id @default(autoincrement())
+    name      String
+    price     Float
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    shoppingCartItems ShoppingCartItem[]
+
+    @@index([name])
+}
+
+
+model ShoppingCartItem {
+    id            Int       @id @default(autoincrement())
+    quantity      Int
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+
+    // A shopping cart item can have one shopping cart
+    shoppingCart  ShoppingCart @relation(fields: [shoppingCartId], references: [id])
+    shoppingCartId Int
+    // A shopping cart item can have one product
+    product       Product     @relation(fields: [productId], references: [id])
+    productId     Int
+
+    @@index([shoppingCartId])
+    @@index([productId])
+}
+
+
+
+
+
