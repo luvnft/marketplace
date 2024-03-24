@@ -1,5 +1,4 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import Button from "~/components/ui/Button";
 import { api } from "~/utils/api";
 
 interface ShoppingCartProps {

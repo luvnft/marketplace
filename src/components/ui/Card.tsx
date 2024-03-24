@@ -51,7 +51,7 @@ export default function Card({
           <div className="text-lg font-bold text-primary">{`$${price}`}</div>
           <Button
             disabled={isAddingToShoppingCart}
-            onClick={() => onClick(productId)}
+            onClick={() => onClick(Number(productId))}
           >
             {isAddingToShoppingCart ? (
               <div className="flex flex-row items-center gap-2">

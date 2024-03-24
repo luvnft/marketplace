@@ -2,7 +2,6 @@ import { goerli } from "@starknet-react/chains";
 import {
   StarknetConfig,
   publicProvider,
-  argent,
 } from "@starknet-react/core";
 import { WebWalletConnector } from "starknetkit/webwallet";
 

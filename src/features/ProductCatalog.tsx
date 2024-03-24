@@ -64,22 +64,21 @@ import { api } from "~/utils/api";
 export default function ProductCatalog() {
 
 
-  const [isAddingToShoppingCart, setIsAddingToShoppingCart] = React.useState<string | null>(null);
+  const [addedProduct, setAddedProduct] = React.useState<number | null>(null);
 
   const utils = api.useUtils();
 
   const {mutate : addItem} = api.shoppingCart.addItem.useMutation({
     onSuccess: async () => {
       await utils.shoppingCart.invalidate();
-      setIsAddingToShoppingCart(null);
+      setAddedProduct(null);
     }
   });
 
-  const handleAddToCart = (productId: string) => {
-    // Aquí necesitas obtener el `cartId` del usuario actual. Esto es solo un placeholder.
-    const cartId = 1; // Placeholder: reemplaza esto con la lógica para obtener el ID del carrito real del usuario
+  const handleAddToCart = (productId: number) => {
+    const cartId = 1;
     addItem({ cartId, productId, quantity: 1});
-    setIsAddingToShoppingCart(productId);
+    setAddedProduct(productId);
 
   }
 
@@ -88,15 +87,14 @@ export default function ProductCatalog() {
       {coffeeCards.map(({ id, title, description, imageUrl, imageAlt }) => (
         <div key={id}>
           <Card
-            loading={isAddingToShoppingCart}
             title={title}
             description={description}
             imageUrl={imageUrl}
             imageAlt={imageAlt}
             price="10.00"
-            productId={id}
+            productId={String(addedProduct)}
             onClick={handleAddToCart}
-            isAddingToShoppingCart={isAddingToShoppingCart === id}
+            isAddingToShoppingCart={addedProduct === id}
           />
         </div>
       ))}
