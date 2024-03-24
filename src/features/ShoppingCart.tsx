@@ -6,7 +6,7 @@ interface ShoppingCartProps {
 }
 
 export default function ShoppingCart({ closeCart }: ShoppingCartProps) {
-  const cartId = 1; // Asume que tienes la lógica para obtener el cartId
+  const cartId = 1;
 
   const utils = api.useUtils();
   const { data: cartItems, isLoading } = api.shoppingCart.getItems.useQuery({

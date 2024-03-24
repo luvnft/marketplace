@@ -76,6 +76,8 @@ export default function ProductCatalog() {
   });
 
   const handleAddToCart = (productId: number) => {
+
+
     const cartId = 1;
     addItem({ cartId, productId, quantity: 1});
     setAddedProduct(productId);
@@ -92,7 +94,7 @@ export default function ProductCatalog() {
             imageUrl={imageUrl}
             imageAlt={imageAlt}
             price="10.00"
-            productId={String(addedProduct)}
+            productId={String(id)}
             onClick={handleAddToCart}
             isAddingToShoppingCart={addedProduct === id}
           />
