@@ -3,12 +3,28 @@ import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
   content: ["./src/**/*.tsx"],
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+
+  daisyui: {
+    themes: [
+      {
+        cofiblocks: {
+          // "primary-content": "#ffffff",
+          primary: "#2D7161",
+          secondary: "#FFC222",
+          accent: "#E36C59",
+          neutral: "#3d4451",
+          "base-100": "#ffffff",
+        },
+      },
+    ],
+    theme: {
+      extend: {
+        fontFamily: {
+          roboto: ["var(--roboto-font)", ...fontFamily.sans],
+        },
       },
     },
   },
-  plugins: [],
+
+  plugins: [require("daisyui")],
 } satisfies Config;
