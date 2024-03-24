@@ -11,6 +11,7 @@ interface HeaderProps {
   connect: (args?: ConnectVariables | undefined) => void;
   connectors: Connector[];
   disconnect: () => void;
+  cartItems?: number;
 }
 
 export default function Header({
@@ -18,10 +19,10 @@ export default function Header({
   connect,
   connectors,
   disconnect,
+  cartItems = 0,
 }: HeaderProps) {
 
   const [isCartOpen, setIsCartOpen] = useState(false);
-
 
   return (
     <header className="flex items-center justify-between bg-white p-4 shadow-md">
@@ -30,16 +31,17 @@ export default function Header({
           Welcome to CofiBlocks ☕️
         </div>
       </div>
-      <div className="flex items-center gap-4">
-        <ShoppingCartIcon 
-          onClick={ () => setIsCartOpen(!isCartOpen) }
-          className="h-6 w-6 cursor-pointer text-gray-600" 
-         />
-        {isCartOpen && 
-          <ShoppingCart 
-            closeCart={ () => setIsCartOpen(false) }
-          /> 
-          }
+      <div className="relative flex items-center gap-4">
+        {cartItems > 0 && (
+          <div className="absolute left-4 top-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+            {cartItems}
+          </div>
+        )}
+        <ShoppingCartIcon
+          onClick={() => setIsCartOpen(!isCartOpen)}
+          className="h-6 w-6 cursor-pointer text-gray-600"
+        />
+        {isCartOpen && <ShoppingCart closeCart={() => setIsCartOpen(false)} />}
         {!address ? (
           <ul className="flex gap-2">
             {connectors.map((connector) => (

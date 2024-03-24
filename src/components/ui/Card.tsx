@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Button from "./Button";
 import { Subtitle } from "./Typography";
+import Spinner from "./Spinner";
 
 interface CardProps {
   title: string;
@@ -10,6 +11,9 @@ interface CardProps {
   imageAlt?: string;
   price: string;
   className?: string;
+  productId: string;
+  onClick?: (productId: number) => void;
+  isAddingToShoppingCart?: boolean;
 }
 
 export default function Card({
@@ -18,8 +22,12 @@ export default function Card({
   imageUrl,
   imageAlt = "Imagen del producto",
   price,
+  productId,
   className = "",
+  onClick = () => null,
+  isAddingToShoppingCart = false,
 }: CardProps) {
+
   return (
     <div
       className={`card card-compact bg-base-100 shadow-xl ${className} group hover:cursor-pointer`}
@@ -40,11 +48,19 @@ export default function Card({
         <Subtitle className="card-title">{title}</Subtitle>
         <p>{description}</p>
         <div className="mt-4 flex items-center justify-between">
-          <div className="text-primary text-lg font-bold">{`$${price}`}</div>
+          <div className="text-lg font-bold text-primary">{`$${price}`}</div>
           <Button
-            onClick={() => console.log("Comprar")}
+            disabled={isAddingToShoppingCart}
+            onClick={() => onClick(productId)}
           >
-          Add to Cart
+            {isAddingToShoppingCart ? (
+              <div className="flex flex-row items-center gap-2">
+                <Spinner className="h-4 w-4" />
+                <span> Adding</span>
+              </div>
+            ) : (
+              "Add to cart"
+            )}
           </Button>
         </div>
       </div>
