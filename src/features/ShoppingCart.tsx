@@ -27,22 +27,28 @@ export default function ShoppingCart({ closeCart }: ShoppingCartProps) {
 
   return (
     <div className="absolute right-0 top-14 w-96 bg-white p-4 shadow-xl">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pb-4">
         <h3 className="text-xl font-bold">Shopping Cart</h3>
-        <button onClick={closeCart}>
-          <XMarkIcon className="w-6 text-primary" />
-        </button>
+        <button className="text-sm text-gray-600 underline" onClick={closeCart}>Close</button>
       </div>
-      <div className="mt-4 flex flex-col gap-4">
+      <div className="flex flex-col items-stretch gap-4 text-sm">
         {cartItems?.map((item) => (
-          <div key={item.id} className="flex items-center justify-between">
+          <div
+            key={item.id}
+            className="grid grid-cols-3 items-center  justify-start gap-6"
+          >
             <p>{item.product.name}</p>
             <p>${item.product.price}</p>
-            <button onClick={() => handleRemoveItem(item.id)}>Remove</button>
+            <button
+              className="text-left text-sm justify-self-end"
+              onClick={() => handleRemoveItem(item.id)}
+            >
+              <XMarkIcon className="w-6  text-red-600" />
+            </button>
           </div>
         ))}
       </div>
-      <div className="mt-4 flex justify-between">
+      <div className="mt-4 flex justify-between border-t-2 pt-2 font-bold">
         <p>Total</p>
         <p>
           $
