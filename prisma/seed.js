@@ -17,11 +17,11 @@ async function main() {
   // Productos de ejemplo
   const product1 = await prisma.product.create({
     data: {
-      name: "Café Antigua Guatemala",
+      name: "Cafe Las Peñas",
       price: 10.5,
       nftMetadata: JSON.stringify({
-        origin: "Guatemala",
-        producer: "Finca La Bella",
+        origin: "Costa Rica",
+        producer: "Cafe Las Peñas",
         roast: "Medium",
       }),
     },
