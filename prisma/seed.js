@@ -3,7 +3,15 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  // Usuarios de ejemplo
+  // Clean up existing data
+  await prisma.orderItem.deleteMany();
+  await prisma.order.deleteMany();
+  await prisma.shoppingCartItem.deleteMany();
+  await prisma.shoppingCart.deleteMany();
+  await prisma.product.deleteMany();
+  await prisma.user.deleteMany();
+
+  // Insert new users
   const user1 = await prisma.user.create({
     data: {
       walletAddress: "0xUniqueWalletAddress1",
@@ -14,7 +22,7 @@ async function main() {
     },
   });
 
-  // Productos de ejemplo
+  // Insert new products
   const product1 = await prisma.product.create({
     data: {
       name: "Cafe Las Peñas",
@@ -39,11 +47,24 @@ async function main() {
     },
   });
 
-  // Crear una orden para el usuario1 con ambos productos
+  // Create a shopping cart for user1 with products
+  const cart = await prisma.shoppingCart.create({
+    data: {
+      userId: user1.id,
+      items: {
+        create: [
+          { productId: product1.id, quantity: 1 },
+          { productId: product2.id, quantity: 2 },
+        ],
+      },
+    },
+  });
+
+  // Create an order for user1 with both products
   const order = await prisma.order.create({
     data: {
       userId: user1.id,
-      total: product1.price + product2.price, // Simplicidad en el cálculo del total
+      total: product1.price + 2 * product2.price, // Simplify total calculation
       status: "PENDING",
       items: {
         create: [
@@ -55,7 +76,7 @@ async function main() {
   });
 
   console.log(
-    `Seed data inserted: Order ${order.id} created for ${user1.name}`,
+    `Seed data inserted: Order ${order.id} created for ${user1.name}, shopping cart ${cart.id} created for ${user1.name}`,
   );
 }
 
@@ -67,3 +88,5 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+
+

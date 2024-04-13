@@ -6,7 +6,7 @@ interface ShoppingCartProps {
 }
 
 export default function ShoppingCart({ closeCart }: ShoppingCartProps) {
-  const cartId = 1;
+  const cartId = 2;
 
   const utils = api.useUtils();
   const { data: cartItems, isLoading } = api.shoppingCart.getItems.useQuery({
@@ -29,7 +29,9 @@ export default function ShoppingCart({ closeCart }: ShoppingCartProps) {
     <div className="absolute right-0 top-14 w-96 bg-white p-4 shadow-xl">
       <div className="flex items-center justify-between pb-4">
         <h3 className="text-xl font-bold">Shopping Cart</h3>
-        <button className="text-sm text-gray-600 underline" onClick={closeCart}>Close</button>
+        <button className="text-sm text-gray-600 underline" onClick={closeCart}>
+          Close
+        </button>
       </div>
       <div className="flex flex-col items-stretch gap-4 text-sm">
         {cartItems?.map((item) => (
@@ -40,7 +42,7 @@ export default function ShoppingCart({ closeCart }: ShoppingCartProps) {
             <p>{item.product.name}</p>
             <p>${item.product.price}</p>
             <button
-              className="text-left text-sm justify-self-end"
+              className="justify-self-end text-left text-sm"
               onClick={() => handleRemoveItem(item.id)}
             >
               <XMarkIcon className="w-6  text-red-600" />
